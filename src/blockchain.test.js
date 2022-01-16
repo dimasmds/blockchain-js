@@ -108,4 +108,38 @@ describe('Blockchain', () => {
       expect(bitcoin.chain[2].transactions).toHaveLength(3);
     });
   });
+
+  describe('hashBlock', () => {
+    it('should hash block correctly', () => {
+      const bitcoin = new Blockchain();
+      const previousHash = '87765DA6CCF0668238C1D27C35692E11';
+      const currentBlockData = [
+        {
+          amount: 10,
+          sender: 'B4CEE9C0E5CD571',
+          recipient: '3A3F6E462D48E9',
+        },
+        {
+          amount: 20,
+          sender: 'B4KOA9C0E5CD571',
+          recipient: '3PLOKMMI2D48E9',
+        },
+        {
+          amount: 30,
+          sender: 'B4KOA9C0ASASDJJ',
+          recipient: '3ASDOIKWI2D48E9',
+        },
+        {
+          amount: 40,
+          sender: 'B4KOAQAALLOLSIS',
+          recipient: '3PLASDSSW2D48E9',
+        },
+      ];
+      const nonce = 100;
+
+      const result = bitcoin.hashBlock(previousHash, currentBlockData, nonce);
+
+      expect(result).toHaveLength(64);
+    });
+  });
 });
