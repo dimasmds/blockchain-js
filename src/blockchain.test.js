@@ -33,4 +33,20 @@ describe('Blockchain', () => {
       expect(bitcoin.chain).toHaveLength(3);
     });
   });
+
+  describe('getLastBlock', () => {
+    it('should return the last block correctly', () => {
+      const bitcoin = new Blockchain();
+
+      bitcoin.createNewBlock(2389, 'OIUOEREDHKHKD', '78s97d4x6dsf');
+      bitcoin.createNewBlock(2231, 'OIUASDEDHKWEW', '78s97dxww2qw');
+      bitcoin.createNewBlock(2212, 'MOAHSAJJWKASD', '123x239sj22x');
+
+      const block = bitcoin.getLastBlock();
+
+      expect(block.nonce).toEqual(2212);
+      expect(block.previousBlockHash).toEqual('MOAHSAJJWKASD');
+      expect(block.hash).toEqual('123x239sj22x');
+    });
+  });
 });
